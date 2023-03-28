@@ -4,12 +4,12 @@
     <div v-else>
         <h1>¿Quién es este pokemón?</h1>
         <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon"/>
-        <PokemonOptions :pokemons="pokemonArr" @selection="checkAnswer( $event)"/>
-        <div v-if="showAnswer" class="my-4">
+        <PokemonOptions v-if="!showAnswer" :pokemons="pokemonArr" @selection="checkAnswer( $event)"/>
+        <div v-if="showAnswer" class="answer">
             <h2 class="fade-in">{{message}}</h2>
-            <button class="btn btn-primary"
+            <!-- <button class="btn btn-primary"
                 @click="newGame()"
-            >Nuevo juego</button>
+            >Nuevo juego</button> -->
         </div>
     </div>
 </template>
@@ -47,6 +47,8 @@ export default {
             } else {
                 this.message = `Oops, era ${ this.pokemon.name }`
             };
+
+            setTimeout(()=> this.newGame(), 1500)
         },
         newGame(){
             this.showAnswer = false
@@ -63,5 +65,7 @@ export default {
 </script>
 
 <style>
-
+    .answer{
+        margin-top: 250px;
+    }
 </style>
